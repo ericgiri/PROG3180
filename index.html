@@ -1,0 +1,229 @@
+<!--
+    Name: Bhawani Giri
+    Course: PROG3180
+    Assignment: 3
+    Professor: Sabbir Ahmed
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BGFeedbackA2</title>
+    <!--our style-->
+    <link rel="stylesheet" type="text/css" href="css/bgmystyle.css">
+    <!--jQuery Mobile style-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+    <!--jQuery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+    <!--jQuery Mobile-->
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+    <!--jQuery validator-->
+    <script src="js/lib/jquery.validate.js"></script>
+    <!--myscript-->
+    <script src="js/bgdatabase.js"></script>
+    <script src="js/bgfeedbackDAL.js"></script>
+    <script src="js/bgglobal.js"></script>
+    <script src="js/bgutil.js"></script>
+    <script src="js/bgFacade.js"></script>
+
+</head>
+<body>
+<!--HomePage Begins-->
+<div data-role="page" id="BGHomePage">
+    <header data-role="header" style="background: #000; color: #fff;" data-position="fixed">
+        <h1>BG Feedback A2</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#BGHomePage" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                <li><a href="#BGAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#BGViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                <li><a href="#BGSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <h2>Bhawani Giri's Feedback A1 App</h2>
+        <p>Welcome to the Bhawani Giri's Feedback A1 app. A prototype design for mobile application class.
+            This is the first iteration of the app to keep track of different places you visited along with your
+            reviews.</p>
+    </section>
+</div>
+<!--Homepage Ends-->
+
+<!--Add Page Begins-->
+<div data-role="page" id="BGAddFeedbackPage">
+    <header data-role="header" style="background: #000; color: #fff;" data-position="fixed">
+        <h1>Add a Feedback</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#BGHomePage" data-icon="home">Home</a></li>
+                <li><a href="#BGAddFeedbackPage" data-icon="plus" class="ui-btn-active ui-state-persist">Add</a></li>
+                <li><a href="#BGViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                <li><a href="#BGSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="BGAddForm" action="" method="post">
+            <label for="txtBusinessName">Business Name</label>
+            <input type="text" id="txtBusinessName" name="txtBusinessName"/>
+            <label for="bgselect">Type</label>
+            <select id="bgselect">
+                <option>Other</option>
+                <option>Canadian</option>
+                <option>Chinese</option>
+                <option>American</option>
+            </select>
+            <label for="txtReviewEmail">Reviewer Email:</label>
+            <input type="text" id="txtReviewEmail" name="txtReviewEmail"/>
+            <label for="txtComment">Reviewers Comments:</label>
+            <textarea id="txtComment" name="txtComment"></textarea>
+            <label for="date">Review Date:</label>
+            <input type="date" id="date" name="date">
+            <input type="checkbox" id="bgCheckBox"/><br>
+            <label for="bgCheckBox">Do You want to add rating?</label>
+            <div id="frmExtra">
+                <label for="txtFoodQuality">Food Quality (0-5)</label>
+                <input type="text" id="txtFoodQuality" value="0" name="txtFoodQuality"/>
+                <label for="txtService">Service (0-5)</label>
+                <input type="text" id="txtService" value="0" name="txtService"/>
+                <label for="txtValue">Value (0-5)</label>
+                <input type="text" id="txtValue" value="0" name="txtValue"/>
+                <label for="txtOverallRating">Overall Rating(calculated)</label>
+                <input type="text" id="txtOverallRating" name="txtOverallRating" readonly/>
+            </div>
+            <a href="#" data-role="button" class="ui-btn-active" id="btnSubmit" name="btnSubmit" data-inline="true">Save</a>
+        </form>
+    </section>
+    <footer data-role="footer" style="background: #000; color: #fff;">
+        <h3>&copy;2016 Bhawani Giri</h3>
+    </footer>
+</div>
+<!--Add Page Ends-->
+
+<!--Reviews Page Begins-->
+<div data-role="page" id="BGViewFeedbackPage">
+    <header data-role="header" style="background: #000; color: #fff;" data-position="fixed">
+        <h1>List of Reviews</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#BGHomePage" data-icon="home">Home</a></li>
+                <li><a href="#BGAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#BGViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a>
+                </li>
+                <li><a href="#BGSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <ul id="feedback1" data-role="listview" data-split-icon="gear" class="ui-listview-inset">
+            <li data-icon="false">
+                <a href="#BGEditFeedbackPage">
+                    <h4>Business Name: Bhawani Giri</h4>
+                    <p>Reviewer email: bhawani-giri@gmail.com<br>
+                        Comment: Good one!<br>
+                        Rating: 80%</p>
+                </a>
+            </li>
+            <li data-icon="false">
+                <a href="#BGEditFeedbackPage">
+                    <h4>Business Name: Eric Giri</h4>
+                    <p>Reviewer email: eric-giri@gmail.com<br>
+                        Comment: Nice one!<br>
+                        Rating: 70%</p>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <footer data-role="footer" style="background: #000; color: #fff;" data-position="fixed">
+        <h3>&copy;2016 Bhawani Giri</h3>
+    </footer>
+</div>
+<!--Reviews Page Ends-->
+
+<!--Modify Feedback Page Begins-->
+<div data-role="page" id="BGEditFeedbackPage">
+    <header data-role="header" style="background: #000; color: #fff;" data-position="fixed">
+        <h1>Modify Feedback</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#BGHomePage" data-icon="home">Home</a></li>
+                <li><a href="#BGAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#BGViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a>
+                </li>
+                <li><a href="#BGSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="frmModify" action="" method="post">
+            <label for="txtBusinessName1">Business Name</label>
+            <input type="text" id="txtBusinessName1" name="txtBusinessName1" placeholder="My Coffee Shop"/>
+            <label for="type1">Type</label>
+            <select id="type1">
+                <option>Other</option>
+                <option>Canadian</option>
+                <option>Chinese</option>
+                <option>American</option>
+            </select>
+            <label for="txtReviewEmail1">Reviewer Email</label>
+            <input type="text" id="txtReviewemail1" name="txtReviewemail1" placeholder="jb@spy.com"/>
+            <label for="txtComment1">Reviewers Comments</label>
+            <textarea id="txtComment1" name="txtComment1">Good Coffee!</textarea>
+            <label for="date1">Overall Rating (1-100)</label>
+            <input type="date" id="date1" name="date1"/>
+            <input type="checkbox" id="boxCheck2"/>
+            <label for="boxCheck2">Do You want to add rating?</label>
+            <div id="frmExtra1">
+                <label for="txtFoodQuality1">Food Quality (0-5)</label>
+                <input type="text" id="txtFoodQuality1" name="txtFoodQuality1" value="0"/>
+                <label for="txtService1">Service (0-5)</label>
+                <input type="text" id="txtService1" name="txtService1" value="0"/>
+                <label for="txtValue1">Value (0-5)</label>
+                <input type="text" id="txtValue1" name="txtValue1" value="0"/>
+                <label for="txtOverallRating1">Overall Rating(calculated)</label>
+                <input type="text" id="txtOverallRating1" name="txtOverallRating1" readonly/>
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <a href="#" data-role="button" style="background-color: yellow;">Cancel</a>
+                <a href="#" data-role="button" data-theme="b" style="color:#fff">Delete</a>
+                <a href="#" data-role="button" id="btnSubmit1" class="ui-btn-active">Update</a>
+            </fieldset>
+        </form>
+    </section>
+    <footer data-role="footer" style="background: #000; color: #fff;" data-position="fixed">
+        <h3>&copy;2016 Bhawani Giri</h3>
+    </footer>
+</div>
+<!--Modify Feedback Page Ends-->
+
+<!--Settings Page Begins-->
+
+<div data-role="page" id="BGSettingsPage">
+    <header data-role="header" style="background: #000; color: #fff;" data-position="fixed">
+        <h1>Settings</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#BGHomePage" data-icon="home">Home</a></li>
+                <li><a href="#BGAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#BGViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                <li><a href="#BGSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form action="" method="post">
+            <label for="txtEmail">Default reviewer Email:</label>
+            <input type="text" id="txtEmail" value="bgiri@conestogac.on.ca"/>
+            <button id="btnSaveDefault" style="background-color: #2e81ff; color:white">Save Defaults</button>
+            <button id="btnClearDatabase" data-theme="b">Clear Database</button>
+        </form>
+    </section>
+    <footer data-role="footer" style="background: #000; color: #fff;" data-position="fixed">
+        <h3>&copy;2016 Bhawani Giri</h3>
+    </footer>
+</div>
+<!--Settings Page Ends-->
+</body>
+</html>

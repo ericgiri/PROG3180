@@ -59,7 +59,9 @@ function btnSubmit_check()
 function btnSubmit1_check(){
     doValidate_frmModifyFeedback();
 }
-
+function showReview() {
+    showAllReview();
+}
 function btnSave_default(){
     store_default_Email();
 }
@@ -101,6 +103,7 @@ function init()
     $("#btnSaveDefault").on("click", btnSave_default)
     $("#btnClearDatabase").on("click", btnClear_Click);
     $("#bgselect").on("click", getType);
+    $("#BGEditFeedbackPage").on("show", showReview);
 }
 
 $(document).ready(function(){

@@ -83,34 +83,5 @@ var Review = {
         }
 
         db.transaction(txFunction, errorHandler, successTransaction);
-    },
-
-
-    clearDatabase: function () {
-        var response = "";
-
-        function successDelete() {
-            console.info("Database cleared successfully");
-        }
-        function txFunction(tx) {
-            response = confirm("Do you really want to clear database ?");
-            if (response) {
-                console.info("Clearing Database ..");
-
-                var sqlType = "DROP TABLE IF EXISTS BGType;";
-                tx.executeSql(sqlType, null, successDelete, errorHandler);
-
-                var sqlReview = "DROP TABLE IF EXISTS BGReview;";
-                tx.executeSql(sqlReview, null, successDelete, errorHandler);
-                alert("Database cleared");
-            }
-
-            else {
-                alert("Database not cleared");
-            }
-
-        }
-
-        db.transaction(txFunction, errorHandler, successTransaction);
     }
 };

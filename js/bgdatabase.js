@@ -79,11 +79,27 @@ var DB = {
                 console.info("Review Table created successfully");
             }
 
-            tx.executeSql(sqlReview, option, successCreateTypeTable, errorHandler);
+            tx.executeSql(sqlReview, option, successCreateReviewTable, errorHandler);
 
         }
 
         db.transaction(txFunction, errorHandler, successTransaction);
 
+    },
+    bgDropTables:function(){
+        function successDrop(){
+            console.info("Success: Dropping Table successful");
+        }
+        function txFunction(tx){
+            var options = [];
+            console.info("Dropping table: BGType");
+            var sqlType = "DROP TABLE IF EXISTS BGType;";
+            tx.executeSql(sqlType, successDrop, errorHandler);
+            console.info("Dropping table: BGReview");
+            var sqlReview = "DROP TABLE IF EXISTS BGReview;";
+            tx.executeSql(sqlReview, options,successDrop, errorHandler);
+
+        }
+        db.transaction(txFunction, errorHandler, successTransaction);
     }
 };

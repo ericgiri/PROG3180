@@ -29,7 +29,7 @@ function updateReview(){
     var rating1 = $("#txtFoodQuality1").val();
     var rating2 = $("#txtService1").val();
     var rating3 = $("#txtValue1").val();
-    var options = [businessName, typeId, reviewerEmail, reviewerComments, reviewDate,hasRating,rating1, rating2, rating3];
+    var options = [businessName, typeId, reviewerEmail, reviewerComments, reviewDate,hasRating,rating1, rating2, rating3, id];
     Review.update(options);
 }
 
@@ -61,33 +61,48 @@ function showReview(){
 }
 
 function showAllReview(){
-    function successSelectAll(tx, results) {
+    function successSelectAll(results) {
         console.info(results.rows.length);
         var htmlCode = "";
+        if (results.rows.length != 0) {
+            var numberOfItem = results.rows.length;
+            for (var i = 0; i < numberOfItem; i++) {
+                var row = results.rows[i];  // results.rows.item(i) also works;
+                console.info("id: " + row['id'] + " Name: " + row['businessName'] + " Email: " + row['reviewerEmail']);
 
-        for (var i = 0; i < results.rows.length; i++) {
-            var row = results.rows[i];  // results.rows.item(i) also works;
-            console.info("id: " + row['id'] + " Name: " + row['businessName'] + " Email: " + row['email']);
-
-            htmlCode += "<li><a data-role='button' data-row-id=" + row['id'] +
-                " href='#'> " +
-                "<h1>Name: " + row['businessName'] + "</h1>" +
-                "<h2>Type ID: " + row['typeId'] + "</h2>"+
-                "<h3>Email: "+ row['email'] + "</h3>" +
-                "</a></li>";
+                htmlCode += "<li><a data-role='button' data-row-id=" + row['id'] +
+                    " href='#'> " +
+                    "<h1>Name: " + row['businessName'] + "</h1>" +
+                    "<h3>Email: " + row['reviewerEmail'] + "</h3>" +
+                    "<h3>Review Date: " + row['reviewDate'] + "</h3>" +
+                    "</a></li>";
+            }
         }
-        var lv = $("#feedback1");
-        lv = lv.html(htmlCode);
-        lv.listview("refresh");
-        $("#feedback1 a").on("click", clickHandler);
-
-        function clickHandler() {
-            localStorage.setItem("id", $(this).attr("data-row-id"));
-            $(location).prop('href', '#BGEditFeedbackPage');
-            //$.mobile.changePage("#pageDetail", {transition: 'none'}); //also works
+        else{
+            alert("No Record Found");
         }
+
+        var lv = $("#BGFeedbackList");
+            lv = lv.html(htmlCode);
+            lv.listview("refresh");
+            $("#BGFeedbackList a").on("click", clickHandler);
+
+            function clickHandler() {
+                localStorage.setItem("id", $(this).attr("data-row-id"));
+                $(location).prop('href', '#BGEditFeedbackPage');
+            }
+        }
+        Review.selectAll(successSelectAll);
+}
+
+function deleteReview() {
+    var id = localStorage.getItem("id");
+    var option = [id];
+    var response = confirm("Do you really want to delete ?");
+    if(response){
+        //if(doValidate_frmModifyFeedback())
+        Review.delete(option);
     }
-    Review.selectAll(successSelectAll);
 }
 
 

@@ -58,8 +58,8 @@ var DB = {
             tx.executeSql(sql3, option, null, errorHandler);
 
             //Dropping BGReview table is exists
-            var sqlDropReview = "DROP TABLE IF EXISTS BGReview";
-            tx.executeSql(sqlDropReview, null, null, errorHandler);
+            //var sqlDropReview = "DROP TABLE IF EXISTS BGReview";
+            //tx.executeSql(sqlDropReview, null, null, errorHandler);
 
             //Creating BGReview table
             var sqlReview = "CREATE TABLE IF NOT EXISTS BGReview(" +

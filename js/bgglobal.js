@@ -4,7 +4,7 @@
 //show and hide the extra input fields of the form
 function show_hide()
 {
-    $('#boxCheck').change(function(){
+    $('#bgCheckBox').change(function(){
         if($(this).prop("checked")) {
             $('#frmExtra').show();
         }
@@ -55,9 +55,14 @@ function btnSubmit_check()
     addReview();
 }
 
+function btnDelete_click() {
+    deleteReview();
+}
 //checks the modify feedback page form validation
 function btnSubmit1_check(){
-    doValidate_frmModifyFeedback();
+    if(doValidate_frmModifyFeedback()){
+        updateReview();
+    }
 }
 function showReview() {
     showAllReview();
@@ -71,6 +76,7 @@ function getType() {
 function btnClear_Click(){
     clearDatabase();
 }
+
 
 function initDB()
 {
@@ -90,7 +96,7 @@ function initDB()
 }
 function init()
 {
-    $("#boxCheck").on("click", show_hide);
+    $("#bgCheckBox").on("click", show_hide);
     $("#boxCheck2").on("click", show_hide2);
     $("#txtFoodQuality").on("change", show_rating);
     $("#txtService").on("change", show_rating);
@@ -103,7 +109,8 @@ function init()
     $("#btnSaveDefault").on("click", btnSave_default)
     $("#btnClearDatabase").on("click", btnClear_Click);
     $("#bgselect").on("click", getType);
-    $("#BGEditFeedbackPage").on("show", showReview);
+    $("#BGViewFeedbackPage").on("show", showReview);
+    $("#btnDelete").on("click", btnDelete_click);
 }
 
 $(document).ready(function(){

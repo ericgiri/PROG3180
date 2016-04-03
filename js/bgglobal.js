@@ -4,9 +4,12 @@
 //show and hide the extra input fields of the form
 function show_hide()
 {
+    var hasRating = "N";
     $('#bgCheckBox').change(function(){
         if($(this).prop("checked")) {
             $('#frmExtra').show();
+            hasRating ="Y";
+
         }
         else
         {
@@ -18,39 +21,40 @@ function show_hide()
 //shows and hides inout fields in modify feedback page
 function show_hide2()
 {
-    var hasRating;
+    var hasRating ="N";
     $('#boxCheck2').change(function(){
         if($(this).prop("checked")) {
             $('#frmExtra1').show();
-             hasRating= true;
+             hasRating= "Y";
         }
         else
         {
             $('#frmExtra1').hide();
-            hasRating = false;
         }
     });
 }
 
 function getSelectType() {
     getTypeValues();
+}
+function getUpdatedTypeDropdown() {
     bgUpdateTypesDropDown();
 }
 
 //calculates rating for add feedback form
 function show_rating(){
-    var foodQuality = Number($("#txtFoodQuality").val());
-    var service = Number($("#txtService").val());
-    var value = Number($("#txtValue").val());
-    $("#txtOverallRating").val(getOveralRating(foodQuality, service, value));
+    var rating1 = Number($("#txtFoodQuality").val());
+    var rating2 = Number($("#txtService").val());
+    var rating3 = Number($("#txtValue").val());
+    $("#txtOverallRating").val(getOveralRating(rating1, rating2, rating3));
 }
 
 //calculates rating for modify feedback form
 function show_rating_extra(){
-    var foodQuality1 = Number($("#txtFoodQuality1").val());
-    var service1 = Number($("#txtService1").val());
-    var value1 = Number($("#txtValue1").val());
-    $("#txtOverallRating1").val(getOveralRating(foodQuality1, service1, value1));
+    var rating1 = Number($("#txtFoodQuality1").val());
+    var rating2 = Number($("#txtService1").val());
+    var rating3 = Number($("#txtValue1").val());
+    $("#txtOverallRating1").val(getOveralRating(rating1, rating2, rating3));
 }
 //checks the validation
 function btnSubmit_check()
@@ -63,7 +67,10 @@ function btnDelete_click() {
 }
 //checks the modify feedback page form validation
 function btnUpdate_check(){
+    if (doValidate_frmModifyFeedback()) {
         bgUpdateFeedback();
+    }
+
 }
 
 function reviewDetail_show() {
@@ -112,10 +119,9 @@ function init()
     $("#btnSaveDefault").on("click", btnSave_default)
     $("#btnClearDatabase").on("click", btnClear_Click);
     $("#bgselect").on("click", getSelectType);
-    $("#bgtype1").on("click", getSelectType);
+    $("#bgtype1").on("click", getUpdatedTypeDropdown);
     $("#btnDelete").on("click", btnDelete_click);
     $("#BGViewFeedbackPage").on("click", showReviewList);
-    $("#BGEditFeedbackPage").on("click", reviewDetail_show);
 }
 
 $(document).ready(function(){

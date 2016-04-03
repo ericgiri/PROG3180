@@ -4,12 +4,16 @@
  */
 function bgAddFeedback() {
     if (doValidate_frmAddFeedback()) {
+        var hasRating = "N";
         var businessName = $("#txtBusinessName").val();
         var typeId = $("#bgselect").val();
         var reviewerEmail = $("#txtReviewEmail").val();
         var reviewerComments = $("#txtComment").val();
         var reviewDate = $("#date").val();
-        var hasRating = $("#bgCheckBox").prop("checked");
+        if($("#bgCheckBox").prop("checked"))
+        {
+            hasRating ="Y";
+        }
         var rating1 = $("#txtFoodQuality").val();
         var rating2 = $("#txtService").val();
         var rating3 = $("#txtValue").val();
@@ -20,13 +24,17 @@ function bgAddFeedback() {
 
 function bgUpdateFeedback() {
     if (doValidate_frmModifyFeedback()) {
+        var hasRating = "N";
         var id = localStorage.getItem("id");
         var businessName = $("#txtBusinessName1").val();
         var typeId = $("#bgtype1").val();
-        var reviewerEmail = $("#txtReviewemail1").val();
+        var reviewerEmail = $("#txtReviewerEmail1").val();
         var reviewerComments = $("#txtComment1").val();
         var reviewDate = $("#date1").val();
-        var hasRating = $("#boxCheck2").prop("checked");
+        if($("#boxCheck2").prop("checked"))
+        {
+            hasRating ="Y";
+        }
         var rating1 = $("#txtFoodQuality1").val();
         var rating2 = $("#txtService1").val();
         var rating3 = $("#txtValue1").val();
@@ -49,7 +57,7 @@ function showAllReview() {
                 console.info("id: " + row['id'] + " Name: " + row['businessName'] + " Email: " + row['reviewerEmail']);
 
                 htmlCode += "<li><a data-role='button' data-row-id=" + row['id'] +
-                    "href='#'> " +
+                    " href='#'> " +
                     "<h1>Name: " + row['businessName'] + "</h1>" +
                     "<p>Email: " + row['reviewerEmail'] + "</p>" +
                     "<p>Review Date: " + row['reviewDate'] + "</p>";
@@ -75,6 +83,7 @@ function showAllReview() {
         function clickHandler() {
             localStorage.setItem("id", $(this).attr("data-row-id"));
             $(location).prop('href', '#BGEditFeedbackPage');
+            showOneReview();
         }
     }
 
@@ -86,39 +95,37 @@ function showOneReview() {
     var email = localStorage.getItem('DefaultEmail');
     $("#txtReviewerEmail1").val(email);
     var options = [id];
-
+    console.info("Showing review detail for " + id);
     function processData(tx, results) {
         var row = results.rows[0];
         $("#txtBusinessName1").val(row['businessName']);
-        $("#bgtype1").val(row['typeId']);
-        if (row['hasRating']) {
-            $("#boxCheck2").prop("checked", true);
+        $("#bgtype1").val(row['typeId'].value);
+        var checkValue = row['hasRating'];
+        if (checkValue=="Y") {
+            $('#boxCheck2').prop("checked", true);
         }
         else {
-            $("#boxCheck2").prop("checked", false);
+            $("#boxCheck2")[0].checked = false;
         }
 
-        $("#txtComment1").val(row['comment']);
-        $("#date1").val(row['date']);
+        $("#txtComment1").val(row['reviewerComments']);
+        $("#date1").val(row['reviewDate']);
         $("#txtService1").val(row['rating1']);
         $("#txtFoodQuality1").val(row['rating2']);
-        $("#txtValue1").val(row['rating2']);
-
+        $("#txtValue1").val(row['rating3']);
     }
-
     Review.select(options, processData);
-
 }
 
 function bgDeleteFeedback() {
     var id = localStorage.getItem("id");
     var option = [id];
-    if (doValidate_frmModifyFeedback()) {
+    //if (doValidate_frmModifyFeedback()) {
         var response = confirm("Do you really want to delete ?");
         if (response) {
             Review.delete(option);
         }
-    }
+    //}
 }
 
 
@@ -148,12 +155,12 @@ function getTypeValues() {
             else {
                 selectHtmlCode += "<option value =" + row['id'] + ">" + row['name'] + "</option>"
                 console.info(row['name']);
-
             }
 
         }
         var typeId = $("#bgselect");
         typeId = typeId.html(selectHtmlCode);
+        localStorage.setItem("id", $(this).attr("data-row-id"));
         typeId.selectmenu('refresh');
     }
 
@@ -163,10 +170,11 @@ function getTypeValues() {
 function bgUpdateTypesDropDown() {
     function successSelectMenu(tx, results) {
         var selectHtmlCode = "";
+        var id = localStorage.getItem("id");
 
         for (var i = 0; i < results.rows.length; i++) {
             var row = results.rows[i];
-            if (row['name'] == "Other") {
+            if (row['id'] == id) {
                 selectHtmlCode += "<option value =" + row['id'] + " selected>" + row['name'] + "</option>"
                 console.info(row['name']);
             }

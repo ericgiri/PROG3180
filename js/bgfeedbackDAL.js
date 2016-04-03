@@ -63,7 +63,6 @@ var Review = {
             console.info("Success: Delete successful");
             alert("Record deleted successfully");
         }
-
         function txFunction(tx) {
             console.info("Deleting ..");
             var sql = "DELETE FROM BGReview " +

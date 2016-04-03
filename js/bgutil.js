@@ -23,7 +23,7 @@ function doValidate_frmAddFeedback() {
         rules: {
             txtBusinessName:{
                 required:true,
-                rangelength:[3,30]
+                rangelength:[2,30]
             },
             txtReviewEmail: {
                 required:true,
@@ -52,7 +52,7 @@ function doValidate_frmAddFeedback() {
         messages: {
             txtBusinessName:{
                 required:"Business Name is required",
-                rangelength: "The Length Must be 3-10 Characters Long"
+                rangelength: "The Length Must be 2-30 Characters Long"
             },
             txtReviewEmail: {
                 required:"Email is required",
@@ -91,8 +91,7 @@ function doValidate_frmModifyFeedback() {
         rules: {
             txtBusinessName1:{
                 required:true,
-                minlength:3,
-                maxlength:30
+                rangelength:[2,30]
             },
             txtReviewemail1: {
                 required: true,
@@ -121,8 +120,7 @@ function doValidate_frmModifyFeedback() {
         messages: {
             txtBusinessName1:{
                 required:"Business Name is required",
-                minlength:"Length Must be 3-10 Characters Long",
-                maxlength: "Length Must be 3-10 Characters Long"
+                rangelenth:"Length Must be 3-30 Characters Long"
             },
             txtReviewemail1: {
                 required: "Reviewers email is required",

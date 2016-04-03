@@ -69,11 +69,7 @@
             <label for="txtBusinessName">Business Name</label>
             <input type="text" id="txtBusinessName" name="txtBusinessName"/>
             <label for="bgselect">Type</label>
-            <select id="bgselect">
-                <option>Other</option>
-                <option>Canadian</option>
-                <option>Chinese</option>
-                <option>American</option>
+            <select id="bgselect" name="type">
             </select>
             <label for="txtReviewEmail">Reviewer Email:</label>
             <input type="text" id="txtReviewEmail" name="txtReviewEmail"/>
@@ -93,7 +89,7 @@
                 <label for="txtOverallRating">Overall Rating(calculated)</label>
                 <input type="text" id="txtOverallRating" name="txtOverallRating" readonly/>
             </div>
-            <a href="#" data-role="button" class="ui-btn-active" id="btnSubmit" name="btnSubmit" data-inline="true">Save</a>
+            <a href="" data-role="button" class="ui-btn-active" id="btnSubmit" name="btnSubmit" data-inline="true">Save</a>
         </form>
     </section>
     <footer data-role="footer" style="background: #000; color: #fff;">
@@ -118,23 +114,6 @@
     </header>
     <section data-role="content">
         <ul id="BGFeedbackList" data-role="listview" class="ui-listview-inset">
-            <li data-icon="false">
-                <a href="#BGEditFeedbackPage">
-                    <!--<h4>Business Name: Bhawani Giri</h4>
-                    <p>Reviewer email: bhawani-giri@gmail.com<br>
-                        Comment: Good one!<br>
-                        Rating: 80%</p>-->
-                </a>
-            </li>
-
-            <li data-icon="false">
-                <a href="#BGEditFeedbackPage">
-                    <!--<h4>Business Name: Eric Giri</h4>
-                    <p>Reviewer email: eric-giri@gmail.com<br>
-                        Comment: Nice one!<br>
-                        Rating: 70%</p>-->
-                </a>
-            </li>
         </ul>
     </section>
     <footer data-role="footer" style="background: #000; color: #fff;" data-position="fixed">
@@ -163,15 +142,11 @@
             <input type="text" id="txtBusinessName1" name="txtBusinessName1" placeholder="My Coffee Shop"/>
             <label for="bgtype1">Type</label>
             <select id="bgtype1">
-                <option>Other</option>
-                <option>Canadian</option>
-                <option>Chinese</option>
-                <option>American</option>
             </select>
-            <label for="txtReviewEmail1">Reviewer Email</label>
-            <input type="text" id="txtReviewemail1" name="txtReviewemail1" placeholder="jb@spy.com"/>
+            <label for="txtReviewerEmail1">Reviewer Email</label>
+            <input type="text" id="txtReviewerEmail1" name="txtReviewerEmail1" placeholder="jb@spy.com"/>
             <label for="txtComment1">Reviewers Comments</label>
-            <textarea id="txtComment1" name="txtComment1">Good Coffee!</textarea>
+            <textarea id="txtComment1" name="txtComment1"></textarea>
             <label for="date1">Overall Rating (1-100)</label>
             <input type="date" id="date1" name="date1"/>
             <input type="checkbox" id="boxCheck2"/>
@@ -189,7 +164,7 @@
             <fieldset data-role="controlgroup" data-type="horizontal">
                 <a href="#BGViewFeedbackPage" data-role="button" style="background-color: yellow;">Cancel</a>
                 <a href="#" data-role="button" data-theme="b" id="btnDelete">Delete</a>
-                <a href="#" data-role="button" id="btnSubmit1" class="ui-btn-active">Update</a>
+                <a href="#" data-role="button" id="btnUpdate" class="ui-btn-active">Update</a>
             </fieldset>
         </form>
     </section>
@@ -215,8 +190,8 @@
     </header>
     <section data-role="content">
         <form action="" method="post">
-            <label for="txtEmail">Default reviewer Email:</label>
-            <input type="text" id="txtEmail" value="bgiri@conestogac.on.ca"/>
+            <label for="txtDefaultEmail">Default reviewer Email:</label>
+            <input type="text" id="txtDefaultEmail" value="bgiri@conestogac.on.ca"/>
             <button id="btnSaveDefault" style="background-color: #2e81ff; color:white">Save Defaults</button>
             <button id="btnClearDatabase" data-theme="b">Clear Database</button>
         </form>

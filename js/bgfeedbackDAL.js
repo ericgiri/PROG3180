@@ -10,6 +10,7 @@ var Review = {
             function successInsert() {
                 console.info("Success: Insert successful");
                 alert("New record added");
+                showReviewList();
             }
 
             tx.executeSql(sql, options, successInsert, errorHandler);
@@ -29,25 +30,13 @@ var Review = {
         db.transaction(txFunction, errorHandler, successTransaction);
     },
 
-    getType: function () {
-        var options = [];
-
-        function txFunction(tx) {
-            console.info("Selecting types");
-            var sql = "SELECT name FROM BGType;";
-            tx.executeSql(sql, options, null, errorHandler);
-        }
-
-        db.transaction(txFunction, errorHandler, successTransaction);
-    },
-
     select: function (options, callBack) {
         function txFunction(tx) {
             console.info("Selecting a record");
             var sql = "SELECT * FROM BGReview WHERE id = ?;";
             tx.executeSql(sql, options, callBack, errorHandler);
-        }
 
+        }
         db.transaction(txFunction, errorHandler, successTransaction);
     },
     update: function (options) {
@@ -82,6 +71,20 @@ var Review = {
             tx.executeSql(sql, options, successDelete, errorHandler);
         }
 
+        db.transaction(txFunction, errorHandler, successTransaction);
+    }
+};
+
+var Type= {
+    getType: function (callback)
+    {
+        var options = [];
+
+        function txFunction(tx) {
+            console.info("Selecting types");
+            var sql = "SELECT * FROM BGType ORDER BY name DESC;";
+            tx.executeSql(sql, options, callback, errorHandler);
+        }
         db.transaction(txFunction, errorHandler, successTransaction);
     }
 };

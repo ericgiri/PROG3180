@@ -3,8 +3,8 @@
  */
 
 function store_default_Email() {
-    var email = $("#txtEmail").val();
-    localStorage.setItem("DefaultEmail", $("#txtEmail").val());
+    var email = $("#txtDefaultEmail").val();
+    localStorage.setItem("DefaultEmail", $("#txtDefaultEmail").val());
     alert("Default Reviewer Email Saved: " + email);
 }
 
@@ -40,6 +40,7 @@ var DB = {
         function txFunction(tx) {
             var option = [];
             //Drop[ing BGType table is exists
+
             var sqlDropType = "DROP TABLE IF EXISTS BGType";
             tx.executeSql(sqlDropType, null, null, errorHandler);
 
@@ -50,12 +51,8 @@ var DB = {
             tx.executeSql(sqlCreateType, option, successCreateTypeTable, errorHandler);
 
             //Inserting record into BYType Table
-            var sql1 = "INSERT INTO BGType (name) VALUES ('Canadian')";
-            var sql2 = "INSERT INTO BGType (name) VALUES ('Asian')";
-            var sql3 = "INSERT INTO BGType (name) VALUES ('Other')";
-            tx.executeSql(sql1, option, null, errorHandler);
-            tx.executeSql(sql2, option, null, errorHandler);
-            tx.executeSql(sql3, option, null, errorHandler);
+            var sql = "INSERT INTO BGType (name) VALUES ('Canadian'),('Asian'), ('Other')";
+            tx.executeSql(sql, option, null, errorHandler);
 
             //Dropping BGReview table is exists
             //var sqlDropReview = "DROP TABLE IF EXISTS BGReview";

@@ -32,6 +32,10 @@ function show_hide2()
     });
 }
 
+function getSelectType() {
+    getTypeValues();
+    bgUpdateTypesDropDown();
+}
 
 //calculates rating for add feedback form
 function show_rating(){
@@ -51,32 +55,31 @@ function show_rating_extra(){
 //checks the validation
 function btnSubmit_check()
 {
-    doValidate_frmAddFeedback();
-    addReview();
+    bgAddFeedback();
 }
 
 function btnDelete_click() {
-    deleteReview();
+        bgDeleteFeedback();
 }
 //checks the modify feedback page form validation
-function btnSubmit1_check(){
-    if(doValidate_frmModifyFeedback()){
-        updateReview();
-    }
+function btnUpdate_check(){
+        bgUpdateFeedback();
 }
-function showReview() {
-    showAllReview();
+
+function reviewDetail_show() {
+    showOneReview();
 }
+
 function btnSave_default(){
     store_default_Email();
 }
-function getType() {
-    Review.getType();
-}
+
 function btnClear_Click(){
     clearDatabase();
 }
-
+function showReviewList() {
+    showAllReview();
+}
 
 function initDB()
 {
@@ -105,12 +108,14 @@ function init()
     $("#txtService1").on("change", show_rating_extra);
     $("#txtValue1").on("change", show_rating_extra);
     $("#btnSubmit").on("click", btnSubmit_check);
-    $("#btnSubmit1").on("click", btnSubmit1_check);
+    $("#btnUpdate").on("click", btnUpdate_check);
     $("#btnSaveDefault").on("click", btnSave_default)
     $("#btnClearDatabase").on("click", btnClear_Click);
-    $("#bgselect").on("click", getType);
-    $("#BGViewFeedbackPage").on("show", showReview);
+    $("#bgselect").on("click", getSelectType);
+    $("#bgtype1").on("click", getSelectType);
     $("#btnDelete").on("click", btnDelete_click);
+    $("#BGViewFeedbackPage").on("click", showReviewList);
+    $("#BGEditFeedbackPage").on("click", reviewDetail_show);
 }
 
 $(document).ready(function(){
